@@ -3,17 +3,17 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
 export default function Gallery() {
   const [photos, setPhotos] = useState([]);
   const [rollLength, setRollLength] = useState(null);
 
   const fetchPhotos = async () => {
-    const res = await axios.get("https://localhost:5000/api/photos");
+    const res = await axios.get(`${API_BASE_URL}/api/photos`);
     setPhotos(res.data);
 
-    const lenRes = await axios.get(
-      "https://localhost:5000/api/photos/paper-length"
-    );
+    const lenRes = await axios.get(`${API_BASE_URL}/api/photos/paper-length`);
     setRollLength(lenRes.data.totalLengthCm);
   };
 

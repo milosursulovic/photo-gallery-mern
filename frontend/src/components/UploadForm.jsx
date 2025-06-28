@@ -3,6 +3,8 @@
 import { useState } from "react";
 import axios from "axios";
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
 export default function UploadForm({ onUploadComplete }) {
   const [files, setFiles] = useState([]);
   const [progress, setProgress] = useState({});
@@ -17,7 +19,7 @@ export default function UploadForm({ onUploadComplete }) {
     const formData = new FormData();
     formData.append("photo", file);
 
-    return axios.post("https://localhost:5000/api/photos/upload", formData, {
+    return axios.post(`${API_BASE_URL}/api/photos/upload`, formData, {
       headers: { "Content-Type": "multipart/form-data" },
       onUploadProgress: (event) => {
         setProgress((prev) => ({
